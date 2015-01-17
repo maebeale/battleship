@@ -1,6 +1,7 @@
+# include 'set'
 
 class Ship
-  attr_accessor :length #, :ship_squares, :placement_count
+  attr_accessor :length, :ship_squares #, :placement_count
 
   def initialize(length)
     @length = length
@@ -9,7 +10,7 @@ class Ship
   end
 
   # creates an array of squares the ship will occupy when placed
-  def ship_squares(x, y, across)
+  def ship_squares_calc(x, y, across)
     square_count = @length
     if across == true
       while square_count > 0
@@ -32,7 +33,7 @@ class Ship
   # places ship on board. boolean toggle for orientation: across == true
   def place(x, y, across)
     unless @ship_squares.include?([x,y]) || @placement_count == 1
-      ship_squares(x, y, across)
+      ship_squares_calc(x, y, across)
       @placement_count += 1
     end
   end
@@ -42,10 +43,15 @@ class Ship
     @ship_squares.include?([x,y])
   end
 
-  def overlaps_with?(ship_name)
+  def overlaps_with?(other_ship)
     # compare the following two arrays:
-    # ship1.place(1,2,true).ship_squares
-    # ship2.place(1,2,false).ship_squares
+    other_ship.ship_squares.each do |ss|
+      if self.covers?(ss[0],ss[1])
+        return true
+      else
+        return false
+      end
+    end
   end
 
 end
