@@ -48,10 +48,9 @@ class Ship
     other_ship.ship_squares.each do |ss|
       if self.covers?(ss[0],ss[1])
         return true
-      else
-        return false
       end
     end
+    return false
   end
 
 end
