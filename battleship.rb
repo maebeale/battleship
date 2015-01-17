@@ -3,5 +3,5 @@ require './ship'
 class Battleship
 end
 
-ship = Ship.new(4)
-ship.place(2,1,true)
+ship1 = Ship.new(4)
+ship2 = Ship.new(4)
