@@ -75,73 +75,73 @@ class BattleshipTest < Minitest::Unit::TestCase
     refute ship.fire_at(1, 1)
   end
 
-  # def test_07_ships_can_be_sunk
-  #   ship = Ship.new(2)
-  #   ship.place(2, 1, true)
-  #   refute ship.sunk?
-  #   ship.fire_at(2, 1)
-  #   refute ship.sunk?
-  #   ship.fire_at(3, 1)
-  #   assert ship.sunk?
-  # end
-  #
-  #
-  # def test_08_board_class_exists
-  #   assert Board
-  # end
+  def test_07_ships_can_be_sunk
+    ship = Ship.new(2)
+    ship.place(2, 1, true)
+    refute ship.sunk?
+    ship.fire_at(2, 1)
+    refute ship.sunk?
+    ship.fire_at(3, 1)
+    assert ship.sunk?
+  end
 
-#   def test_09_empty_board
-#     board = Board.new
-#     refute board.has_ship_on?(1, 1)
-#     refute board.has_ship_on?(10, 7)
-#   end
-#
-#   def test_10_place_ship
-#     board = Board.new
-#     assert board.place_ship(Ship.new(4), 3, 3, true)
-#     refute board.has_ship_on?(2, 3)
-#     assert board.has_ship_on?(3, 3)
-#     assert board.has_ship_on?(4, 3)
-#     assert board.has_ship_on?(6, 3)
-#     refute board.has_ship_on?(7, 3)
-#     refute board.has_ship_on?(5, 4)
-#   end
-#
-#   def test_11_cant_place_overlapping_ships
-#     board = Board.new
-#     assert board.place_ship(Ship.new(4), 3, 3, true)
-#     refute board.place_ship(Ship.new(4), 1, 3, true)
-#     refute board.place_ship(Ship.new(4), 4, 3, true)
-#     refute board.place_ship(Ship.new(4), 4, 2, false)
-#   end
-#
-#   def test_12_misses_on_empty_board
-#     board = Board.new
-#     refute board.fire_at(1, 1)
-#     refute board.fire_at(10, 7)
-#   end
-#
-#   def test_13_hits_on_board
-#     board = Board.new
-#     board.place_ship(Ship.new(4), 3, 3, true)
-#     refute board.fire_at(1, 1)
-#     assert board.fire_at(3, 3)
-#   end
-#
-#   def test_14_repeat_miss
-#     board = Board.new
-#     board.place_ship(Ship.new(4), 3, 3, true)
-#     refute board.fire_at(1, 1)
-#     refute board.fire_at(1, 1)
-#   end
-#
-#   def test_15_repeat_hit
-#     board = Board.new
-#     board.place_ship(Ship.new(4), 3, 3, true)
-#     assert board.fire_at(3, 3)
-#     refute board.fire_at(3, 3)
-#   end
-#
+
+  def test_08_board_class_exists
+    assert Board
+  end
+
+  def test_09_empty_board
+    board = Board.new
+    refute board.has_ship_on?(1, 1)
+    refute board.has_ship_on?(10, 7)
+  end
+
+  def test_10_place_ship
+    board = Board.new
+    assert board.place_ship(Ship.new(4), 3, 3, true)
+    refute board.has_ship_on?(2, 3)
+    assert board.has_ship_on?(3, 3)
+    assert board.has_ship_on?(4, 3)
+    assert board.has_ship_on?(6, 3)
+    refute board.has_ship_on?(7, 3)
+    refute board.has_ship_on?(5, 4)
+  end
+
+  def test_11_cant_place_overlapping_ships
+    board = Board.new
+    assert board.place_ship(Ship.new(4), 3, 3, true)
+    refute board.place_ship(Ship.new(4), 1, 3, true)
+    refute board.place_ship(Ship.new(4), 4, 3, true)
+    refute board.place_ship(Ship.new(4), 4, 2, false)
+  end
+
+  def test_12_misses_on_empty_board
+    board = Board.new
+    refute board.fire_at(1, 1)
+    refute board.fire_at(10, 7)
+  end
+
+  def test_13_hits_on_board
+    board = Board.new
+    board.place_ship(Ship.new(4), 3, 3, true)
+    refute board.fire_at(1, 1)
+    assert board.fire_at(3, 3)
+  end
+
+  def test_14_repeat_miss
+    board = Board.new
+    board.place_ship(Ship.new(4), 3, 3, true)
+    refute board.fire_at(1, 1)
+    refute board.fire_at(1, 1)
+  end
+
+  def test_15_repeat_hit
+    board = Board.new
+    board.place_ship(Ship.new(4), 3, 3, true)
+    assert board.fire_at(3, 3)
+    refute board.fire_at(3, 3)
+  end
+
 #   def test_16_misses_outside_board
 #     board = Board.new
 #     refute board.fire_at(18, 1)
