@@ -80,18 +80,18 @@ class Ship
 
 end
 
-# test 3
-ship = Ship.new(4)
-puts "#{ship.inspect}"
-ship.place(2, 2, false)
-puts "#{ship.inspect}"
-ship.covers?(2, 1)
-ship.covers?(2, 2)
-ship.covers?(2, 3)
-ship.covers?(2, 4)
-ship.covers?(2, 5)
-ship.covers?(2, 6)
-ship.covers?(3, 2)
+# # test 3
+# ship = Ship.new(4)
+# puts "#{ship.inspect}"
+# ship.place(2, 2, false)
+# puts "#{ship.inspect}"
+# ship.covers?(2, 1)
+# ship.covers?(2, 2)
+# ship.covers?(2, 3)
+# ship.covers?(2, 4)
+# ship.covers?(2, 5)
+# ship.covers?(2, 6)
+# ship.covers?(3, 2)
 
 
 # test 4
