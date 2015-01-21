@@ -1,45 +1,42 @@
 # include 'set'
 
 class Ship
-  attr_accessor :length, :possible_squares, :squares, :placement, :hit_count
+  attr_accessor :length, :squares, :hit_count
 
   def initialize(length)
     @length = length
-    @possible_squares = []
     @squares = []
-    @placement = false
-    @hit_count = 0
+    @shots_fired = []
   end
 
   # creates an array of squares the ship will occupy when placed
   def projected_squares(x, y, across)
     count = 0
-    @possible_squares = []
+    resulting_squares = []
     if across == true
       while count < @length
-        @possible_squares << [x, y]
+        resulting_squares << [x, y]
         x += 1
         count += 1
       end
     else #across == false
       while count < @length
-        @possible_squares << [x, y]
+        resulting_squares << [x, y]
         y += 1
         count += 1
       end
     end
-    @projected_squares
+    resulting_squares
   end
 
   # must be called from within board for projected_squares to be squares_covered.
   # 3rd argument is a boolean toggle for orientation. default: across == true
   def place(x, y, across)
-    if @placement
-      return false
-    else
+    if @squares.empty?
       @squares = projected_squares(x, y, across)
-      @placement == true
+      return true
     end
+    return false
   end
 
   # assesses if ship is on a specific square
@@ -53,52 +50,24 @@ class Ship
 
   def overlaps_with?(other_ship)
     # compare the following two arrays:
-    other_ship.possible_squares.any? { |ss| self.covers?(ss[0],ss[1]) }
+    if (self.squares & other_ship.squares).empty?
+      return false
+    else
+      return true
+    end
   end
 
   def fire_at(x, y)
     if covers?(x,y)
-      @squares.delete([x,y])
-      @hit_count += 1
+      @shots_fired << [x,y]
     end
   end
 
   def sunk?
-    if @squares == [] || @hit_count == length #TODO - only need one of these
-      return true
-    else
-      return false
-    end
+    @shots_fired.sort == @squares.sort
   end
 
 end
 
-# # test 3
-# ship = Ship.new(4)
-# puts "#{ship.inspect}"
-# ship.place(2, 2, false)
-# puts "#{ship.inspect}"
-# ship.covers?(2, 1)
-# ship.covers?(2, 2)
-# ship.covers?(2, 3)
-# ship.covers?(2, 4)
-# ship.covers?(2, 5)
-# ship.covers?(2, 6)
-# ship.covers?(3, 2)
-
-
-# test 4
-# ship = Ship.new(4)
-# puts "#{ship.inspect}"
-# ship.place(2, 1, true)
-# puts "#{ship.inspect}"
-# ship.place(3, 2, false)
 # puts "#{ship.inspect}"
 
-# general checks
-# ship1 = Ship.new(4)
-# ship2 = Ship.new(4)
-# puts "0- #{ship1.inspect} -0"
-# puts "1- ship1.squares: #{ship1.length} -1"
-# print "2- #{ship1.place(3, 3, true)} -2 \n"
-# puts "3- #{ship1.inspect} -3"
