@@ -1,13 +1,13 @@
 # include 'set'
 
 class Ship
-  attr_accessor :length, :possible_squares, :squares, :placement_count, :hit_count
+  attr_accessor :length, :possible_squares, :squares, :placement, :hit_count
 
   def initialize(length)
     @length = length
     @possible_squares = []
     @squares = []
-    @placement_count = 0
+    @placement = false
     @hit_count = 0
   end
 
@@ -25,48 +25,41 @@ class Ship
       while count < @length
         @possible_squares << [x, y]
         y += 1
-        count -= 1
+        count += 1
       end
     end
+    @projected_squares
   end
 
   # must be called from within board for projected_squares to be squares_covered.
   # 3rd argument is a boolean toggle for orientation. default: across == true
   def place(x, y, across)
-    if @placement_count == 0 #&& !@squares.include?([x,y])
-      projected_squares(x, y, across)
-      @possible_squares.each { |ps| @squares << ps }
-      @placement_count += 1
+    if @placement
+      return false
+    else
+      @squares = projected_squares(x, y, across)
+      @placement == true
     end
-    # else  #@squares.include?([x,y]) || @placement_count == 1
-    #   # raise "Can't place this ship again"
-    #   # return false#TODO problem is either here
-    #   # return #false
-    # end
-    # return false#TODO or here...
   end
 
   # assesses if ship is on a specific square
   def covers?(x, y)
-    puts "#{ship.inspect}"
     if @squares == []
       return false
-    elsif @squares.include?([x,y])
-      return true
     else
-      return false
+      @squares.include?([x,y])
     end
   end
 
   def overlaps_with?(other_ship)
     # compare the following two arrays:
-    other_ship.projected_squares.any? { |ss| self.covers?(ss[0],ss[1]) }
+    other_ship.possible_squares.any? { |ss| self.covers?(ss[0],ss[1]) }
   end
 
   def fire_at(x, y)
     if covers?(x,y)
       @squares.delete([x,y])
-      hit_count += 1
+      @hit_count += 1
     end
   end
 

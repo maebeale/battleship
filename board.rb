@@ -21,7 +21,7 @@ class Board
   def place_ship(ship, x, y, across)
     ship.projected_squares(x,y, across)
     if ship.possible_squares.any? { |ss| self.has_ship_on?(ss[0],ss[1]) }
-      raise "Can't overlap ships!"
+      #raise "Can't overlap ships!"
       return  #TODO - is this needed here?
     else
       ship.place(x, y, across)
@@ -33,6 +33,9 @@ class Board
 
 end
 
+# board = Board.new
+# board.place_ship(Ship.new(4), 3, 3, true)
+# puts "#{board.inspect}"
 # board = Board.new
 # ship1 = Ship.new(4)
 # ship2 = Ship.new(4)
