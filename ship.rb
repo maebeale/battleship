@@ -9,34 +9,21 @@ class Ship
     @shots_fired = []
   end
 
-  # creates an array of squares the ship will occupy when placed
-  def projected_squares(x, y, across)
-    count = 0
-    resulting_squares = []
-    if across == true
-      while count < @length
-        resulting_squares << [x, y]
-        x += 1
-        count += 1
-      end
-    else #across == false
-      while count < @length
-        resulting_squares << [x, y]
-        y += 1
-        count += 1
-      end
-    end
-    resulting_squares
-  end
-
   # must be called from within board for projected_squares to be squares_covered.
   # 3rd argument is a boolean toggle for orientation. default: across == true
   def place(x, y, across)
     if @squares.empty?
-      @squares = projected_squares(x, y, across)
-      return true
+      if across == true
+        @length.times do |i|
+          @squares << [x+i, y]
+        end
+      else #across == false
+        @length.times do |i|
+          @squares << [x, y+i]
+        end
+      end
+      @squares
     end
-    return false
   end
 
   # assesses if ship is on a specific square
